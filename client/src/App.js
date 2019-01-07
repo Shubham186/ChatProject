@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import io from "socket.io-client";
+import{ BrowserRouter,Route,Link} from 'react-router-dom';
+
+import RegisterUser from './components/Register';
+import LoginUser from './components/Login';
 
 class App extends Component {
     constructor(props){
@@ -10,14 +14,17 @@ class App extends Component {
         }
         this.socket = io(this.state.endpoint);
     }
-    clickHandler(){
+    clickHandler(){        
        this.socket.emit('Hello');
     }
   render() {
     return (
-      <div className="App">
-          <button type='button' onClick={this.clickHandler}>Click me</button>
-      </div>
+     <BrowserRouter>   
+        <div className="App">
+          <Route path='/register' component={RegisterUser} />
+          <Route path='/login' component={LoginUser} />
+        </div>
+      </BrowserRouter>
     );
   }
 }
