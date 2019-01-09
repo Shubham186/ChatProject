@@ -10,7 +10,8 @@ class RegisterUser extends Component {
             name:"",
             email:"",
             password:"",
-            password2:""
+            password2:"",
+            errors:{}
         }
         this.handleNameInput = this.handleNameInput.bind(this);
         this.handleEmailInput = this.handleEmailInput.bind(this);
@@ -18,8 +19,19 @@ class RegisterUser extends Component {
         this.handleConfirmInput = this.handleConfirmInput.bind(this);
         this.handleSubmitEvent = this.handleSubmitEvent.bind(this);
     }
-    handleSubmitEvent(){
-        this.props.registerUser({message:"Hello"});  
+    componentWillReceiveProps(nextProps){
+     this.setState({
+        errors: nextProps.errors
+        });
+    }
+    handleSubmitEvent(){      
+        const user = {
+            name : this.state.name,
+            email : this.state.email,
+            password:this.state.password,
+            password2:this.state.password2            
+        };
+        this.props.registerUser(user);      
     }
     handleNameInput(e) {
         this.setState({
@@ -42,19 +54,24 @@ class RegisterUser extends Component {
   });
  }
     render(){
+        let errors = this.state.errors;
         return(
             <div>
                 <div className="form-group">
                 Name <input value={this.state.name} onChange={this.handleNameInput} className="form-control" type='text' /><br/>
-                </div>
+                {errors.name &&(<div>{errors.name}</div>)}
+                </div>               
                 <div className="form-group">
                 Email <input value={this.state.email} onChange={this.handleEmailInput} className="form-control" type='text' /><br/>
+                {errors.email &&(<div>{errors.email}</div>)}
                 </div>
                 <div className="form-group">
                 Password <input value={this.state.password} onChange={this.handlePasswordInput} className="form-control" type='text' /><br/>
+                {errors.password &&(<div>{errors.password}</div>)}
                 </div>
                 <div className="form-group">
                 Confirm Password <input value={this.state.password2} onChange={this.handleConfirmInput} className="form-control"  type='text' /><br/>
+                {errors.confirm &&(<div>{errors.confirm}</div>)}
                 </div>
                 <button className='btn btn-outline-primary' onClick={this.handleSubmitEvent} type='button'>Submit</button>
             </div>
