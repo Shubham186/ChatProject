@@ -6,7 +6,7 @@ import jwtDecode from 'jwt-decode';
 import io from "socket.io-client";
 
 //Register user
-export const registerUser = userData => dispatch=>{
+export const registerUser = (userData,history) => dispatch=>{
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -18,7 +18,7 @@ export const registerUser = userData => dispatch=>{
         "data": userData
       }
     axios(settings).then(response=>{
-        console.log(response);
+        history.push('/login');
     },err=>{
         dispatch({
             type:GET_ERRORS,

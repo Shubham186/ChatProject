@@ -29,12 +29,8 @@ app.get('/',(req,res)=>{
 const server = http.createServer(app);
 const io = socket(server);
 io.on('connection', socket => {
-    console.log('User connected')
-
-    socket.on('disconnect', () => {
-        console.log('user disconnected')
-    })
-})
+    console.log('User connected') 
+});
 
 server.listen(port,()=>{
     console.log(`listening at port ${port}`);

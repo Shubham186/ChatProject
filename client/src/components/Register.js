@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {registerUser} from '../actions/authActions';
 import PropTypes from 'prop-types';
-
+import {withRouter} from 'react-router-dom';
 class RegisterUser extends Component {
     constructor(props){
         super(props);
@@ -31,7 +31,7 @@ class RegisterUser extends Component {
             password:this.state.password,
             password2:this.state.password2            
         };
-        this.props.registerUser(user);      
+        this.props.registerUser(user,this.props.history);      
     }
     handleNameInput(e) {
         this.setState({
@@ -87,4 +87,4 @@ const mapStateToProps = (state) => ({
     auth:state.auth,
     errors:state.errors
 });
-export default connect(mapStateToProps,{registerUser})(RegisterUser);
+export default connect(mapStateToProps,{registerUser})(withRouter(RegisterUser));
